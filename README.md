@@ -27,40 +27,7 @@ An intelligent email reply generator powered by **Google Gemini 2.5 Flash AI**, 
 
 ---
 
-## 📁 Project Structure
 
-```
-email/
-├── email-writer-sb/          # Spring Boot Backend
-│   ├── src/main/java/
-│   │   └── com/email/writer/
-│   │       ├── EmailWriterSbApplication.java
-│   │       └── app/
-│   │           ├── EmailGeneratorController.java
-│   │           ├── EmailGeneratorService.java
-│   │           ├── EmailRequest.java
-│   │           └── CorsConfig.java
-│   ├── src/main/resources/
-│   │   └── application.properties
-│   └── pom.xml
-│
-├── email-writer-react/       # React Frontend
-│   ├── src/
-│   │   ├── App.jsx
-│   │   ├── App.css
-│   │   └── main.jsx
-│   ├── index.html
-│   └── package.json
-│
-├── email-writer-ext/         # Chrome Extension (Gmail)
-│   ├── content.js
-│   ├── content.css
-│   └── manifest.json
-│
-└── start.bat                 # One-click startup script
-```
-
----
 
 ## 🚀 Getting Started
 
