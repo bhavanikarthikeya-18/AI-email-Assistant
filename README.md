@@ -17,17 +17,50 @@ An intelligent email reply generator powered by **Google Gemini 2.5 Flash AI**, 
 
 ## 🛠️ Tech Stack
 
-| Layer             | Technology                  |
-| ----------------- | --------------------------- |
-| Frontend          | React 18, Vite, Material UI |
-| Backend           | Spring Boot 3.4, Java 24    |
-| AI                | Google Gemini 2.5 Flash     |
-| HTTP Client       | Spring WebFlux (WebClient)  |
-| Browser Extension | Chrome Manifest V3          |
+| Layer | Technology |
+|---|---|
+| Frontend | React 18, Vite, Material UI |
+| Backend | Spring Boot 3.4, Java 24 |
+| AI | Google Gemini 2.5 Flash |
+| HTTP Client | Spring WebFlux (WebClient) |
+| Browser Extension | Chrome Manifest V3 |
 
 ---
 
+## 📁 Project Structure
 
+```
+email/
+├── email-writer-sb/          # Spring Boot Backend
+│   ├── src/main/java/
+│   │   └── com/email/writer/
+│   │       ├── EmailWriterSbApplication.java
+│   │       └── app/
+│   │           ├── EmailGeneratorController.java
+│   │           ├── EmailGeneratorService.java
+│   │           ├── EmailRequest.java
+│   │           └── CorsConfig.java
+│   ├── src/main/resources/
+│   │   └── application.properties
+│   └── pom.xml
+│
+├── email-writer-react/       # React Frontend
+│   ├── src/
+│   │   ├── App.jsx
+│   │   ├── App.css
+│   │   └── main.jsx
+│   ├── index.html
+│   └── package.json
+│
+├── email-writer-ext/         # Chrome Extension (Gmail)
+│   ├── content.js
+│   ├── content.css
+│   └── manifest.json
+│
+└── start.bat                 # One-click startup script
+```
+
+---
 
 ## 🚀 Getting Started
 
@@ -38,47 +71,50 @@ An intelligent email reply generator powered by **Google Gemini 2.5 Flash AI**, 
 - Node.js 18+
 - Google Chrome (for extension)
 
----
-
 ### ⚙️ Configuration
 
-1. Inside `email-writer-sb/src/main/resources/`, create a file called `application.properties`:
+1. Copy the template file:
+```bash
+cp email-writer-sb/src/main/resources/application.properties.template email-writer-sb/src/main/resources/application.properties
+```
 
+2. Open `application.properties` and replace `YOUR_GEMINI_API_KEY` with your real key:
 ```properties
 spring.application.name=email-writer-sb
 gemini.api.url=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent
 gemini.api.key=YOUR_GEMINI_API_KEY
 ```
 
-2. Replace `YOUR_GEMINI_API_KEY` with your actual key.
+> ⚠️ Never commit `application.properties` — it is listed in `.gitignore` to keep your key safe.
 
-> ⚠️ Never commit `application.properties` — it is listed in `.gitignore` to keep your key safe.  
 > Get your free API key at 👉 https://aistudio.google.com/app/apikey
 
 ---
 
 ### ▶️ Running the Project
 
-#### Backend
+#### Option 1 — One Click (Windows)
+Just double-click `start.bat` in the `email/` folder. It will:
+- Start the backend on port 8080
+- Start the frontend on port 5173
+- Auto-open the browser
 
+#### Option 2 — Manual
+
+**Backend:**
 ```bash
 cd email-writer-sb
-mvn spring-boot:run
+java -jar target\email-writer-sb-0.0.1-SNAPSHOT.jar
 ```
 
-Backend starts on **http://localhost:8080**
-
-#### Frontend
-
+**Frontend:**
 ```bash
-# from the repo root
+cd email-writer-react
 npm install
 npm run dev
 ```
 
-Frontend starts on **http://localhost:5173**
-
-> ⚠️ Make sure the backend is running before starting the frontend.
+Then open **http://localhost:5173** in your browser.
 
 ---
 
@@ -91,7 +127,6 @@ POST http://localhost:8080/api/email/generate
 ```
 
 **Request Body:**
-
 ```json
 {
   "emailContent": "Hi, can you please send me the project proposal?",
@@ -100,7 +135,6 @@ POST http://localhost:8080/api/email/generate
 ```
 
 **Response:**
-
 ```
 Dear [Name],
 
@@ -110,14 +144,14 @@ Best regards,
 [Your Name]
 ```
 
-**Tone Options:** `professional` | `casual` | `friendly` | `""` (no tone)
+**Tone Options:** `professional` | `casual` | `friendly` | `""` (none)
 
 ---
 
 ## 🧩 Chrome Extension (Gmail)
 
 1. Open Chrome and go to `chrome://extensions`
-2. Enable **Developer Mode** (top right toggle)
+2. Enable **Developer Mode** (top right)
 3. Click **"Load unpacked"**
 4. Select the `email-writer-ext/` folder
 5. Open **https://mail.google.com**
