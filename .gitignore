@@ -1,0 +1,28 @@
+# ===========================
+# Spring Boot Backend
+# ===========================
+email-writer-sb/target/
+email-writer-sb/*.jar
+email-writer-sb/.mvn/
+email-writer-sb/mvnw
+email-writer-sb/mvnw.cmd
+
+# Secret config — never commit real keys
+email-writer-sb/src/main/resources/application.properties
+
+# ===========================
+# React Frontend
+# ===========================
+email-writer-react/node_modules/
+email-writer-react/dist/
+email-writer-react/.env
+email-writer-react/.env.local
+
+# ===========================
+# OS & IDE files
+# ===========================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.iml
